@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quà Tặng Em ♡</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{overflow:hidden;height:100vh;background:linear-gradient(#ffd6ea,#ffc0dd);font-family:Arial,sans-serif}
+#scene{position:relative;width:100%;height:100%}
+.title{
+position:absolute;top:10%;left:50%;transform:translateX(-50%);
+color:#fff;font-size:2rem;font-weight:700;
+text-shadow:2px 2px 0 #ff4d88,-2px -2px 0 #ff4d88,0 0 12px rgba(255,255,255,.9);
+z-index:10
+}
+.heart,.spark{position:absolute;pointer-events:none}
+.heart{color:rgba(255,255,255,.6);animation:float 12s linear infinite}
+.spark{width:4px;height:4px;border-radius:50%;background:#fff;animation:float 8s linear infinite}
+@keyframes float{
+from{transform:translateY(110vh)}
+to{transform:translateY(-20vh)}
+}
+#gift{position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);cursor:pointer}
+.box{
+width:190px;height:140px;background:#ff4d88;border:2px solid #333;border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,.15);position:relative
+}
+.ribbonV,.ribbonH{background:#ffe08a;border:2px solid #333;position:absolute}
+.ribbonV{width:26px;height:140px;left:50%;transform:translateX(-50%)}
+.ribbonH{width:190px;height:26px;top:57px}
+.lid{
+width:220px;height:42px;background:#ff5f96;border:2px solid #333;border-radius:12px;
+position:absolute;left:-15px;top:-28px;transition:1s
+}
+.bow{
+position:absolute;left:50%;top:-58px;transform:translateX(-50%);
+font-size:44px;filter:drop-shadow(0 2px 0 #333);
+animation:wobble 2s infinite ease-in-out;
+}
+@keyframes wobble{
+50%{transform:translateX(-50%) rotate(3deg)}
+}
+.open .lid{transform:translateY(-220px) rotate(-18deg)}
+#videoWrap{
+position:absolute;left:50%;top:58%;
+transform:translate(-50%,-50%) scale(.2);
+opacity:0;z-index:20
+}
+video{
+height:85vh;max-width:90vw;border-radius:16px;
+box-shadow:0 0 30px rgba(255,255,255,.5)
+}
+.rise{animation:rise 1.4s forwards}
+@keyframes rise{
+to{opacity:1;transform:translate(-50%,-180%) scale(.7)}
+}
+.zoom{animation:zoom 1.6s forwards}
+@keyframes zoom{
+to{opacity:1;transform:translate(-50%,-50%) scale(1)}
+}
+.drop{animation:drop .8s forwards}
+@keyframes drop{to{transform:translate(-50%,120vh);opacity:0}}
+.flash{
+position:absolute;width:20px;height:20px;border-radius:50%;
+background:rgba(255,255,255,.9);pointer-events:none
+}
+</style>
+</head>
+<body>
+<div id="scene">
+<div class="title">Quà Tặng Em ♡</div>
+
+<div id="gift">
+<div class="bow">🎀</div>
+<div class="lid"></div>
+<div class="box">
+<div class="ribbonV"></div>
+<div class="ribbonH"></div>
+</div>
+</div>
+
+<div id="videoWrap">
+<video id="video" preload="auto">
+<source src="video.mp4" type="video/mp4">
+</video>
+</div>
+</div>
+
+<script>
+const scene=document.getElementById('scene');
+for(let i=0;i<12;i++){
+ let h=document.createElement('div');
+ h.className='heart';
+ h.textContent='♡';
+ h.style.left=Math.random()*100+'vw';
+ h.style.fontSize=(12+Math.random()*12)+'px';
+ h.style.animationDuration=(10+Math.random()*8)+'s';
+ scene.appendChild(h);
+}
+for(let i=0;i<18;i++){
+ let s=document.createElement('div');
+ s.className='spark';
+ s.style.left=Math.random()*100+'vw';
+ s.style.animationDuration=(6+Math.random()*4)+'s';
+ scene.appendChild(s);
+}
+
+const gift=document.getElementById('gift');
+const wrap=document.getElementById('videoWrap');
+const video=document.getElementById('video');
+
+gift.onclick=()=>{
+ gift.classList.add('open');
+
+ for(let i=0;i<10;i++){
+  let f=document.createElement('div');
+  f.className='flash';
+  f.style.left='50%';
+  f.style.top='58%';
+  scene.appendChild(f);
+  setTimeout(()=>f.remove(),800);
+ }
+
+ setTimeout(()=>wrap.classList.add('rise'),700);
+ setTimeout(()=>{
+   gift.classList.add('drop');
+   wrap.style.top='50%';
+   wrap.classList.add('zoom');
+ },2200);
+
+ setTimeout(()=>{
+   video.play().catch(()=>{});
+ },3800);
+
+ gift.onclick=null;
+}
+</script>
+</body>
+</html>
